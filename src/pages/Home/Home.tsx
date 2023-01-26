@@ -6,12 +6,11 @@ const Home: React.FC = () => {
   const dispatch = useCustomDispatch();
 
   const handleLogin = (): void => {
-    login(
-      {
+    void dispatch(
+      login({
         email: 'eve.holt@reqres.in',
         password: 'cityslicka'
-      },
-      dispatch
+      })
     );
   };
 
