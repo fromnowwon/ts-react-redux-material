@@ -36,7 +36,8 @@ export const login =
   async (dispatch): Promise<AxiosResponse | AxiosError> => {
     try {
       const response: AxiosResponse = await axios.post('/login', data);
-      dispatch(setAccessToken(response.data.token()));
+      console.log(response.data.token);
+      dispatch(setAccessToken(response.data.token));
       return response;
     } catch (error) {
       return error as AxiosError;
