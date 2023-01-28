@@ -1,9 +1,20 @@
+import { Button, Switch, Typography, CircularProgress } from '@mui/material';
+
 import { useCustomSelector, useCustomDispatch } from 'hooks/redux';
 import { login } from 'redux/slices/auth';
+import { setThemeMode } from 'redux/slices/settings';
+
+import {
+  AppBarContainerStyled,
+  AppBarStyled,
+  BodyContainerStyled,
+  CardStyled
+} from './HomeStyles';
 
 const Home: React.FC = () => {
   const {
-    auth: { accessToken, isLoading }
+    auth: { isLoading },
+    settings: { themeMode }
   } = useCustomSelector((state) => state);
   const dispatch = useCustomDispatch();
 
@@ -16,13 +27,26 @@ const Home: React.FC = () => {
     );
   };
 
-  console.log(accessToken);
+  const handleChangeTheme = (): void => {
+    dispatch(setThemeMode(themeMode === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <div>
-      Home
-      <button onClick={handleLogin}>Login</button>
-      {isLoading && 'Loading...'}
+      <AppBarStyled>
+        <AppBarContainerStyled>
+          <Typography>TS-REACT-REDUX TOOLKIT-MATERIAL UI</Typography>
+          <Switch onChange={handleChangeTheme} />
+        </AppBarContainerStyled>
+      </AppBarStyled>
+      <BodyContainerStyled>
+        <CardStyled>
+          <Button variant="contained" onClick={handleLogin}>
+            Login
+          </Button>
+          {isLoading && <CircularProgress size={24} />}
+        </CardStyled>
+      </BodyContainerStyled>
     </div>
   );
 };
