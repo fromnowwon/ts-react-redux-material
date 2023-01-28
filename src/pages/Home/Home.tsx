@@ -2,7 +2,9 @@ import { useCustomSelector, useCustomDispatch } from 'hooks/redux';
 import { login } from 'redux/slices/auth';
 
 const Home: React.FC = () => {
-  const { auth } = useCustomSelector((state) => state);
+  const {
+    auth: { accessToken, isLoading }
+  } = useCustomSelector((state) => state);
   const dispatch = useCustomDispatch();
 
   const handleLogin = (): void => {
@@ -14,12 +16,13 @@ const Home: React.FC = () => {
     );
   };
 
-  console.log(auth.accessToken);
+  console.log(accessToken);
 
   return (
     <div>
       Home
       <button onClick={handleLogin}>Login</button>
+      {isLoading && 'Loading...'}
     </div>
   );
 };
